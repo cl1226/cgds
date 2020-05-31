@@ -191,11 +191,9 @@
 				});
 			}
 		},
-		activated () {
-			this.$emit('show-bar')
-		},
 		created() {
 			this.loadNews()
+			this.$emit('show-bar')
 		}
 	}
 </script>

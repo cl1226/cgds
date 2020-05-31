@@ -9,10 +9,10 @@
 		  <el-divider class="mid" v-if="showBar"></el-divider>
 	  	<el-tabs v-model="activeName" @tab-click="handleClick" v-if="showBar">
 	  		<el-tab-pane v-for="tab in tabs" :key="tab.code" :label="tab.name" :name="tab.code">
-	  			<router-view @hide-bar="hideBar" @show-bar="show" />
+	  			<router-view @hide-bar="hideBar" />
 	  		</el-tab-pane>
 			</el-tabs>
-			<router-view v-if="!showBar" />
+			<router-view v-if="!showBar" @show-bar="show" />
 		</el-container>
 		
 	</div>
@@ -61,7 +61,6 @@
 				this.showBar = false;
 			},
 			show() {
-				console.log(this.$route.name)
 				this.showBar = true;
 			}
 		},

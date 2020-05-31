@@ -9,7 +9,7 @@ import Register from "../views/pc/page/register.vue";
 import Rank from "../views/pc/page/rank.vue";
 import Dashboard from "../views/pc/page/dashboard.vue";
 import News from "../views/pc/page/news.vue";
-import Award from "../views/pc/award.vue";
+import Award from "../views/pc/page/award.vue";
 import Dynamic from "../views/pc/page/dynamic.vue";
 
 // 移动端

@@ -23,4 +23,7 @@ body {
   color: #2c3e50;
   /*margin-top: 60px;*/
 }
+.el-backtop, .el-calendar-table td.is-today {
+  color: #DC3838 !important;
+}
 </style>

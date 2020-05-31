@@ -8,13 +8,13 @@
 		    <span class="label">立即报名万元大奖等你来！</span>
 		  </div>
 		  <div class="text item">
-		    <el-button class="register">立即报名</el-button>
+		    <el-button class="register" @click="register">立即报名</el-button>
 		  </div>
 		  <div class="text item">
-		  	<el-button class="login">登录</el-button>
+		  	<el-button class="login" @click="login">登录</el-button>
 		  </div>
 		  <div class="text item">
-		  	<el-button class="open">去开户</el-button>
+		  	<el-button class="open" @click="open">去开户</el-button>
 		  </div>
 		</el-card>
 		<el-card class="box-card info-card" v-if="isLogin">
@@ -159,7 +159,7 @@
 		name: 'index',
 		data() {
 			return {
-				isLogin: true,
+				isLogin: false,
 				tableData1: [],
 				tableData2: [],
 				'banner': banner,
@@ -170,6 +170,15 @@
 			}
 		},
 		methods: {
+			register() {
+				this.$router.push('register')
+			},
+			login() {
+				this.$router.push('login')
+			},
+			open() {
+				window.open('http://www.ykzq.com/channel/123.html')
+			},
 			load () {
         this.count += 2
       },
@@ -181,6 +190,9 @@
 			     	console.log(response.data);
 				});
 			}
+		},
+		activated () {
+			this.$emit('show-bar')
 		},
 		created() {
 			this.loadNews()

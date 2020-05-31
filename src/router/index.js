@@ -3,8 +3,14 @@ import VueRouter from "vue-router";
 
 // PC端
 import Layout from "../views/pc/common/layout.vue";
-import Login from "../views/pc/login.vue";
+import Index from "../views/pc/page/index.vue";
+import Login from "../views/pc/page/login.vue";
+import Register from "../views/pc/page/register.vue";
+import Rank from "../views/pc/page/rank.vue";
+import Dashboard from "../views/pc/page/dashboard.vue";
+import News from "../views/pc/page/news.vue";
 import Award from "../views/pc/award.vue";
+import Dynamic from "../views/pc/page/dynamic.vue";
 
 // 移动端
 import MobileHome from "../views/phone/index.vue";
@@ -28,22 +34,27 @@ const routes = [
       {
         path: 'index',
         name: 'index',
-        component: Award
+        component: Index
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: Register
       },
       {
         path: 'rank',
         name: 'rank',
-        component: Award
+        component: Rank
       },
       {
         path: 'dashboard',
         name: 'dashboard',
-        component: Award
+        component: Dashboard
       },
       {
         path: 'news',
         name: 'news',
-        component: Award
+        component: News
       },
       {
         path: 'intro',
@@ -58,7 +69,7 @@ const routes = [
       {
         path: 'dynamic',
         name: 'dynamic',
-        component: Award
+        component: Dynamic
       }
     ]
   },

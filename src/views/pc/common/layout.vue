@@ -5,15 +5,14 @@
 		  <el-header style="height: 80px; margin-top: 20px;">
 		  	<Header></Header>
 		  </el-header>
-		  <el-divider></el-divider>
-		  <!-- <el-main> -->
-		  	<el-tabs v-model="activeName" @tab-click="handleClick" v-if="showBar">
-		  		<el-tab-pane v-for="tab in tabs" :key="tab.code" :label="tab.name" :name="tab.code">
-		  			<router-view @hide-bar="hideBar" />
-		  		</el-tab-pane>
-				</el-tabs>
-		  	<router-view/>
-		  <!-- </el-main> -->
+		  <el-divider class="up"></el-divider>
+		  <el-divider class="mid" v-if="showBar"></el-divider>
+	  	<el-tabs v-model="activeName" @tab-click="handleClick" v-if="showBar">
+	  		<el-tab-pane v-for="tab in tabs" :key="tab.code" :label="tab.name" :name="tab.code">
+	  			<router-view @hide-bar="hideBar" />
+	  		</el-tab-pane>
+			</el-tabs>
+			<router-view v-if="!showBar" />
 		</el-container>
 		
 	</div>
@@ -61,29 +60,42 @@
 			hideBar() {
 				this.showBar = false;
 			}
+		},
+		created() {
+			this.activeName = this.$route.name
 		}
 	}
 </script>
 <style lang="stylus">
 	.layout
-		.el-divider--horizontal
+		.el-divider--horizontal.up
 			margin: 0;
-		.el-tabs__header
-				margin: 0;
-			.el-tabs__nav
-				width: 100%;
-				.el-tabs__item
-					width: 14.2%;
-					font-size: 20px;
-					height: 50px;
-					line-height: 50px;
-					font-weight: 400;
-				.el-tabs__item:hover
-					background: #DC3838;
-					color: #FFF;
-				.is-active
-					background: #DC3838;
-					color: #FFF;
-				.el-tabs__active-bar
-					display: none;
+		.el-divider--horizontal.mid
+			margin: 0;
+			position: absolute;
+			top: 150px;
+			background: #DC3838;
+			z-index: 100;
+			height: 2px;
+		.el-tabs
+			width: 965px;
+			margin: 0 auto;
+			.el-tabs__header
+					margin: 0;
+				.el-tabs__nav
+					width: 100%;
+					.el-tabs__item
+						width: 14.2%;
+						font-size: 20px;
+						height: 50px;
+						line-height: 50px;
+						font-weight: 400;
+					.el-tabs__item:hover
+						background: #DC3838;
+						color: #FFF;
+					.is-active
+						background: #DC3838;
+						color: #FFF;
+					.el-tabs__active-bar
+						display: none;
 </style>

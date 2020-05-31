@@ -6,7 +6,7 @@
 	  <div class="login-form">
 	  	<el-form ref="form" :label-position="`right`" :model="form" label-width="80px">
 			  <el-form-item label="用户名">
-			    <el-input v-model="form.name" autocomplete="off"></el-input>
+			    <el-input v-model="form.name" autocomplete="off" placeholder="客户号/手机号码/昵称"></el-input>
 			  </el-form-item>
 			  <el-form-item label="密码">
 			    <el-input v-model="form.pass" autocomplete="off"></el-input>
@@ -18,21 +18,25 @@
 			    </el-input>
 			  </el-form-item>
 			  <el-form-item>
-			    <el-button type="primary" @click="onSubmit">立即创建</el-button>
-			    <el-button>取消</el-button>
+			    <el-button @click="onSubmit">登录</el-button>
+			    <el-link type="primary" class="forget" :underline="false" @click="forget">忘记密码</el-link>
+					<el-link type="primary" class="register" :underline="false" @click="register">还未报名？立即报名>></el-link>
 			  </el-form-item>
 			</el-form>
 	  </div>
+	 	<Footer />
 	</div>
 </template>
 <script>
 	import bg from '@/assets/pc/login_bg.png'
 	import SIdentify from '@/views/pc/common/identify.vue'
+	import Footer from '@/views/pc/common/footer.vue'
 
 	export default{
 		name: 'login',
 		components: {
-			SIdentify: SIdentify
+			SIdentify: SIdentify,
+			Footer: Footer
 		},
 		data() {
 			return {
@@ -63,6 +67,12 @@
 	    },
 			onSubmit() {
 
+			},
+			forget() {
+
+			},
+			register() {
+
 			}
 		},
 		created() {
@@ -79,13 +89,27 @@
 	.login
 		position: relative;
 		.login-form
+			border-radius: 5px;
 			position: absolute;
 			top: 80px;
 			right: 70px;
 			padding: 15px;
+			width: 400px;
+			height: 280px;
 			background: #ffffff;
 			.el-input-group__append
 				padding: 0;
 				border: none;
 				cursor: pointer;
+			.el-button
+				width: 100%;
+				color: #fff;
+				background: #DC3838;
+				font-size: 18px;
+			.el-button:active
+				border: none;
+			.forget
+				float: left;
+			.register
+				float: right;
 </style>

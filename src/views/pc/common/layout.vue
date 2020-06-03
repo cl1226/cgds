@@ -6,13 +6,12 @@
 		  	<Header></Header>
 		  </el-header>
 		  <el-divider class="up"></el-divider>
-		  <el-divider class="mid" v-if="showBar"></el-divider>
-	  	<el-tabs v-model="activeName" @tab-click="handleClick" v-if="showBar">
+		  <el-divider class="mid"></el-divider>
+	  	<el-tabs v-model="activeName" @tab-click="handleClick">
 	  		<el-tab-pane v-for="tab in tabs" :key="tab.code" :label="tab.name" :name="tab.code">
-	  			<router-view @hide-bar="hideBar" />
+	  			<router-view v-if="activeName == tab.code" @tabChange="change" />
 	  		</el-tab-pane>
 			</el-tabs>
-			<router-view v-if="!showBar" @show-bar="show" />
 		</el-container>
 		
 	</div>
@@ -39,7 +38,7 @@
 					name: '我的主页',
 					code: 'dashboard'
 				}, {
-					name: '投顾咨询',
+					name: '投顾资讯',
 					code: 'news'
 				}, {
 					name: '大赛说明',
@@ -48,23 +47,52 @@
 					name: '活动奖品',
 					code: 'award'
 				}, {
+					name: '获奖名单',
+					code: 'winner'
+				}, {
 					name: '大赛动态',
 					code: 'dynamic'
-				}]
+				}, {
+					name: '我的关注',
+					code: 'follower',
+					hideden: true
+				}, {
+					name: '我的粉丝',
+					code: 'fans',
+					hidden: true
+				},]
 			}
 		},
 		methods: {
 			handleClick() {
-				this.$router.push('/cgds/' + this.activeName)
+				var self = this
+				if (!this.isLogin && this.activeName == 'dashboard') {
+					self.$confirm('该功能需要登录,是否前往登录页面?', '提示', {
+	          confirmButtonText: '确定',
+	          cancelButtonText: '取消',
+	          type: 'warning'
+	        }).then(() => {
+	          self.$router.push('/cgds/login')
+	        }).catch(() => {
+	          
+	        });
+				} else {
+					this.$router.push('/cgds/' + this.activeName)	
+				}
 			},
 			hideBar() {
 				this.showBar = false;
 			},
 			show() {
 				this.showBar = true;
+			},
+			change() {
+				this.activeName = this.$route.name
 			}
 		},
 		created() {
+			this.isLogin = localStorage.getItem('isLogin') || false
+			this.currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
 			this.activeName = this.$route.name
 		}
 	}
@@ -81,14 +109,14 @@
 			z-index: 100;
 			height: 2px;
 		.el-tabs
-			width: 965px;
+			width: 960px;
 			margin: 0 auto;
 			.el-tabs__header
 					margin: 0;
 				.el-tabs__nav
 					width: 100%;
 					.el-tabs__item
-						width: 14.2%;
+						width: 12.5%;
 						font-size: 20px;
 						height: 50px;
 						line-height: 50px;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Message } from 'element-ui';
 
 let http = axios.create({
   baseURL: '/smc2/',
@@ -24,8 +25,13 @@ function apiAxios(method, url, params, response) {
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null,
   }).then(function (res) {
-    response(res);
+    if (res && res.status == 200) {
+      response(res.data);  
+    } else {
+      Message.error('请求失败');
+    }
   }).catch(function (err) {
+    Message.error('请求失败');
     response(err);
   })
 }

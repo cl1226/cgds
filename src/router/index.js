@@ -6,11 +6,18 @@ import Layout from "../views/pc/common/layout.vue";
 import Index from "../views/pc/page/index.vue";
 import Login from "../views/pc/page/login.vue";
 import Register from "../views/pc/page/register.vue";
+import Forget from "../views/pc/page/forget.vue";
 import Rank from "../views/pc/page/rank.vue";
 import Dashboard from "../views/pc/page/dashboard.vue";
+import Follower from "../views/pc/page/follower.vue";
+import Fans from "../views/pc/page/fans.vue";
 import News from "../views/pc/page/news.vue";
+import NewsDetail from "../views/pc/page/newsDetail.vue";
+import Intro from "../views/pc/page/intro.vue";
 import Award from "../views/pc/page/award.vue";
+import Winner from "../views/pc/page/winner.vue";
 import Dynamic from "../views/pc/page/dynamic.vue";
+import DynamicDetail from "../views/pc/page/dynamicDetail.vue";
 
 // 移动端
 import MobileHome from "../views/phone/index.vue";
@@ -22,24 +29,37 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    redirect: "/cgds"
+  },
+  {
+    path: "/cgds",
+    redirect: "/cgds/index"
+  },
+  {
+    path: "/cgds/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/cgds/register",
+    name: "register",
+    component: Register,
+  },
+  {
+    path: "/cgds/forget",
+    name: "forget",
+    component: Forget,
+  },
+  {
     path: "/cgds",
     name: "Home",
     component: Layout,
     children: [
       {
-        path: 'login',
-        name: 'login',
-        component: Login
-      },
-      {
         path: 'index',
         name: 'index',
         component: Index
-      },
-      {
-        path: 'register',
-        name: 'register',
-        component: Register
       },
       {
         path: 'rank',
@@ -52,14 +72,29 @@ const routes = [
         component: Dashboard
       },
       {
+        path: 'follower',
+        name: 'follower',
+        component: Follower
+      },
+      {
+        path: 'fans',
+        name: 'fans',
+        component: Fans
+      },
+      {
         path: 'news',
         name: 'news',
         component: News
       },
       {
+        path: 'news/detail/:id',
+        name: 'newsDetail',
+        component: NewsDetail
+      },
+      {
         path: 'intro',
         name: 'intro',
-        component: Award
+        component: Intro
       },
       {
         path: 'award',
@@ -67,9 +102,19 @@ const routes = [
         component: Award
       },
       {
+        path: 'winner',
+        name: 'winner',
+        component: Winner
+      },
+      {
         path: 'dynamic',
         name: 'dynamic',
         component: Dynamic
+      },
+      {
+        path: 'dynamic/detail/:date',
+        name: 'dynamicDetail',
+        component: DynamicDetail
       }
     ]
   },

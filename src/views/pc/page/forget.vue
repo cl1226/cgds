@@ -5,22 +5,22 @@
 	  	<Header></Header>
 	  </el-header>
 	  <el-divider class="up"></el-divider>
-		<div class="register">
+		<div class="forgetPass">
 			<br>
 			<el-breadcrumb separator-class="el-icon-arrow-right">
 			  <el-breadcrumb-item :to="{ path: '/cgds/index' }">大赛首页</el-breadcrumb-item>
-			  <el-breadcrumb-item>我要报名</el-breadcrumb-item>
+			  <el-breadcrumb-item>忘记密码</el-breadcrumb-item>
 			</el-breadcrumb>
 			<br>
 			<el-card class="box-card" shadow="never">
 			  <div slot="header" class="clearfix">
-			    <span>我要报名</span>
+			    <span>忘记密码</span>
 			  </div>
 			  <div class="progress">
 			  	<el-steps :active="active" finish-status="success">
 					  <el-step title="身份验证"></el-step>
-					  <el-step title="完善信息"></el-step>
-					  <el-step title="完成报名"></el-step>
+					  <el-step title="重置密码"></el-step>
+					  <el-step title="完成找回"></el-step>
 					</el-steps>
 			  </div>
 				<div class="form" v-if="active == 0">
@@ -57,11 +57,7 @@
 			    <br>
 			    <br>
 		    	<el-form ref="form2" status-icon :model="form2" label-width="120px">
-					  <el-form-item label="昵称" :key="`nickname`" prop="nickname" :rules="[
-			      { required: true, message: '昵称不能为空'}]">
-					    <el-input v-model="form2.nickname" autocomplete="off"></el-input>
-					  </el-form-item>
-					  <el-form-item label="大赛密码" :key="`password`" prop="password" :rules="[
+					  <el-form-item label="输入新密码" :key="`password`" prop="password" :rules="[
 					  { required: true, message: '密码不能为空'}]">
 					    <el-input type="password" v-model="form2.password" autocomplete="off"></el-input>
 					  </el-form-item>
@@ -84,12 +80,13 @@
 		    		<el-image
 				      :src="success"
 				      :fit="`cover`"></el-image>
-				    <p>恭喜您完成大赛报名，赛前将对您账户有效参赛资产进行校验，校验结果会赛前短信通知您。</p>
+				    <p>恭喜您成功找回密码</p>
 		    		<div class="next">
-		    			<el-button @click="find" style="width: 60%;">去找高手</el-button>	
+		    			<el-button @click="login" style="width: 60%;">立即登录</el-button>	
 		    		</div>
 		    	</div>
 		    </div>
+
 	    </el-card>
 		</div>
 		<Footer />
@@ -139,7 +136,6 @@
           ]
         },
         form2: {
-        	nickname: '',
         	password: '',
         	repeatPass: ''
         }
@@ -164,11 +160,9 @@
 							this.$message.error('两次输入密码不一致，请重新输入')
 							return
 						}
-						this.$api.post('/user/register', {
-							mobile: this.form.phone,
+						this.$api.post('/user/resetPassword', {
 							accountId: this.form.customerId,
 							password: this.form2.password,
-							nickName: this.form2.nickname,
 							code: this.form.code
 						}, function(response) {
 							if (response && response.code == 1) {
@@ -210,7 +204,7 @@
 					}
         });
 			},
-			find() {
+			login() {
 				this.$router.push('/cgds/login')
 			}
 		},
@@ -222,7 +216,7 @@
 <style lang="stylus">
 	.el-divider--horizontal.up
 		margin: 0;
-	.register
+	.forgetPass
 		width: 960px;
 		margin: 0 auto;
 		.progress

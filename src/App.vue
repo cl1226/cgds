@@ -26,4 +26,10 @@ body {
 .el-backtop, .el-calendar-table td.is-today {
   color: #DC3838 !important;
 }
+
+.el-button:focus, .el-button:active {
+  color: #FFF !important; 
+  background: #DC3838 !important;
+  border-color: #DC3838 !important;
+}
 </style>

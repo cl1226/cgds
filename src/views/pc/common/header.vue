@@ -31,7 +31,6 @@
 	import sublogo from '@/assets/pc/cgds_logo.png'
 	import middle from '@/assets/pc/header_middle.png'
 	import right from '@/assets/pc/header_right.png'
-	import award from '@/assets/pc/award0.png'
 
 	export default {
 		name: 'header',
@@ -40,10 +39,7 @@
 				'logo': logo,
 				'sublogo': sublogo,
 				'middle': middle,
-				'right': right,
-				'award': award,
-				'activeName': 'index',
-				'tabs': ['index', 'rank', 'dashboard', 'news', 'intro', 'award', 'dynamic']
+				'right': right
 			}
 		},
 		methods: {

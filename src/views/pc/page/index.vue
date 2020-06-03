@@ -32,17 +32,17 @@
 		  <el-row style="border-bottom: 1px dashed #ccc; padding: 15px 0;">
 		  	<el-col :span="12" style="border-right: 1px dashed #ccc;">
 		  		<el-col>有效参赛资产</el-col>
-		  		<el-col>{{currentUser.totalAsset || '--'}}</el-col>
+		  		<el-col style="color: #FF7300;margin-top: 5px;">{{currentUser.totalAsset || '--'}}</el-col>
 		  	</el-col>
 		  	<el-col :span="12">
 		  		<el-col>总收益</el-col>
-		  		<el-col>{{currentUser.totalYieldRate || '--'}}</el-col>
+		  		<el-col :class="{'font-red':currentUser.totalYieldRate>0,'font-green':currentUser.totalYieldRate<0}" style="margin-top: 5px;">{{(currentUser.totalYieldRate*100).toFixed(4) || '--'}}%</el-col>
 		  	</el-col>
 		  </el-row>
 		  <el-row style="padding: 15px 0;">
 		  	<el-col :span="12" style="border-right: 1px dashed #ccc;">
 		  		<el-col>总排名</el-col>
-		  		<el-col>{{currentUser.rank || '--'}}</el-col>
+		  		<el-col style="color: #FF7300;margin-top: 5px;">{{currentUser.rank || '--'}}</el-col>
 		  	</el-col>
 		  </el-row>
 		</el-card>

@@ -27,7 +27,7 @@
 				  </el-col>
 				  <el-col :span="6">
 				  	<el-form-item label="总排名:">
-					  	<span>{{currentUser.totalRank}}</span>
+					  	<span>{{currentUser.rank}}</span>
 					  </el-form-item>
 				  </el-col>
 				  <el-col :span="6">

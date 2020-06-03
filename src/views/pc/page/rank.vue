@@ -75,6 +75,9 @@
 		    <el-table-column
 		      prop="weekTradeCount"
 		      label="月交易次数">
+		      <template scope="scope">
+		      	{{scope.row.weekTradeCount || 0}}
+		      </template>
 		    </el-table-column>
 		    <el-table-column
 		      prop="fansCount"
@@ -96,7 +99,7 @@
     排行榜说明：比赛选手的总收益率、月收益率、周收益率、日收益率每日根据前一日收盘清算数据计算一次，每日更新，动态变化。
     <br>
     </div>
-    <div style="color:#DC3838;font-size: 14px;line-height: 25px;padding-top: 10px;text-align:right;">当前收益率统计截止至{{expireTime}}收盘</div>
+    <div style="color:#DC3838;font-size: 14px;line-height: 25px;padding-top: 10px;text-align:right;">当前收益率统计截止至 {{calcDate}} 收盘</div>
 		<br>
 		<br>
 		<Footer />
@@ -128,7 +131,7 @@
 				pageNumber: 1,
 				pageSize: 10,
 				total: 1,
-				expireTime: '2020-09-30'
+				calcDate: ''
 			}
 		},
 		methods: {
@@ -174,10 +177,20 @@
 						self.total = response.obj.totalRow;
 					}
 				});
+      },
+      loadDate() {
+      	var self = this
+      	self.$api.get('/rank/getNewestCalculateDate', {
+      	}, function(response) {
+      		if (response && response.code == 1) {
+      			self.calcDate = response.obj
+      		}
+      	})
       }
 		},
 		created() {
 			this.loadRanks()
+			this.loadDate()
 			this.$emit('tabChange')
 		}
 	}

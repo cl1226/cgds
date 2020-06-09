@@ -10,33 +10,35 @@
 			  <el-step title="完成报名"></el-step>
 			</el-steps>	
     </div>
-    <div class="phone" v-if="active == 1 && !showProtocol">
+    <div class="phone" v-if="active == 0 && !showProtocol">
     	<br>
 	    <br>
 	    <br>
     	<el-form ref="form" status-icon :rules="rules" :model="form" label-width="80px">
-			  <el-form-item label="客户号" prop="customerId" :rules="[
-	      { required: true, message: '客户号不能为空'}]">
-			    <el-input v-model="form.customerId" autocomplete="off"></el-input>
-			  </el-form-item>
-			  <el-form-item label="手机号" prop="phone" :rules="[
-			  { required: true, message: '手机号不能为空'}]">
-			    <el-input v-model="form.phone" autocomplete="off"></el-input>
-			  </el-form-item>
-			  <el-form-item label="验证码" prop="code" :rules="[
-	      { required: true, message: '验证码不能为空'}]">
-			  	<el-input v-model="form.code" autocomplete="off">
-			  		<el-button slot="append" @click="sendSms">获取验证码</el-button>
-			  	</el-input>
-			  </el-form-item>
-			</el-form>
+        <el-form-item label="客户号" :key="`customerId`" prop="customerId" :rules="[
+        { required: true, message: '客户号不能为空'}]">
+          <el-input v-model="form.customerId" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" :key="`phone`" prop="phone" required>
+          <el-input v-model="form.phone" maxlength="11" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="验证码" :key="`code`" prop="code" :rules="[
+        { required: true, message: '验证码不能为空'}]">
+          <el-input v-model="form.code" maxlength="6" autocomplete="off">
+            <el-button slot="append" @click="sendSms('form')" :loading="sending">
+              <span v-if="sending">{{second}}</span>
+              {{sendText}}
+            </el-button>
+          </el-input>
+        </el-form-item>
+      </el-form>
 			<div class="next">
-				<el-button @click="phone_next">下一步</el-button>	
+				<el-button @click="phone_next('form')">下一步</el-button>	
 			</div>
 			<el-link type="primary" class="update" :underline="false" @click="update">修改手机号</el-link>
 			<el-link type="primary" class="open" :underline="false" @click="open">没有客户号？立即开户>></el-link>
     </div>
-    <div class="protocol" v-if="active == 1 && showProtocol">
+    <div class="protocol" v-if="active == 0 && showProtocol">
     	<div style="text-align: left; margin: 0 10px;">
     		<h4 class="text-center">关于联讯证券实盘炒股用户个人主页信息披露的协议</h4>
         <p>甲方：联讯证券股份有限公司</p>
@@ -53,25 +55,25 @@
 				<el-button @click="protocol_next">同意</el-button>	
 			</div>
     </div>
-    <div class="info" v-if="active == 2">
+    <div class="info" v-if="active == 1">
     	<br>
     	<br>
     	<br>
-    	<el-form ref="form" status-icon :rules="rules" :model="form" label-width="80px">
-			  <el-form-item label="昵称" prop="customerId" :rules="[
-	      { required: true, message: '昵称不能为空'}]">
-			    <el-input v-model="form.nickname" autocomplete="off" placeholder="输入长度2-14个字符"></el-input>
-			  </el-form-item>
-			  <el-form-item label="大赛密码" prop="pass" :rules="[
-			  { required: true, message: '密码不能为空'}]">
-			    <el-input v-model="form.pass" autocomplete="off" placeholder="输入长度2-14个字符"></el-input>
-			  </el-form-item>
+    	<el-form ref="form2" status-icon :rules="rules" :model="form2" label-width="120px">
+			  <el-form-item label="大赛密码" :key="`password`" prop="password" :rules="[
+        { required: true, message: '密码不能为空'}]">
+          <el-input type="password" v-model="form2.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="再次输入密码" :key="`repeatPass`" prop="repeatPass" :rules="[
+        { required: true, message: '重复密码不能为空'}]">
+          <el-input type="password" v-model="form2.repeatPass" autocomplete="off"></el-input>
+        </el-form-item>
 			</el-form>
 			<br>
 			<br>
 			<br>
 			<div class="next">
-				<el-button @click="info_next">下一步</el-button>	
+				<el-button @click="info_next('form2')">下一步</el-button>	
 			</div>
     </div>
     <div class="success" v-if="active == 3">
@@ -82,9 +84,9 @@
       :src="success"
       :fit="`cover`"></el-image>
     	<p style="color: #DC3838; text-align: center;">恭喜您完成大赛报名，赛前将对您账户有效参赛资产进行校验,校验结果会赛前短信通知您。</p>
-			<div class="next">
+			<!-- <div class="next">
 				<el-button @click="share">邀请好友来参赛</el-button>	
-			</div>
+			</div> -->
     </div>
 	</div>
 </template>
@@ -97,12 +99,14 @@
     	var validatePhone = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入手机号码'));
+        } else if (value.length < 11) {
+          callback(new Error('手机号码格式有误'));
         } else {
           if (this.form.phone !== '') {
-          	var myreg = /^1[3|4|5|7|8][0-9]{9}$/;
-          	if (!myreg.test(this.form.phone)) {
-							callback(new Error('手机号码格式有误'));
-						}
+            var myreg = /^1[3|4|5|7|8][0-9]{9}$/;
+            if (!myreg.test(this.form.phone)) {
+              callback(new Error('手机号码格式有误'));
+            }
           }
           callback();
         }
@@ -110,34 +114,94 @@
       return {
         'banner': banner,
         'success': success,
-        active: 1,
+        active: 0,
         showProtocol: false,
+        sending: false,
+        sendText: '获取验证码',
+        second: 60,
         form: {
-        	customerId: '',
-        	phone: '',
-        	code: ''
+          customerId: '',
+          phone: '',
+          code: ''
         },
         rules: {
           phone: [
             { validator: validatePhone, trigger: 'blur' }
           ]
+        },
+        form2: {
+          password: '',
+          repeatPass: ''
         }
       }
     },
     methods: {
-    	sendSms() {
-    		
+    	sendSms(form) {
+    		var self = this
+        this.$refs[form].validateField('phone', (valid) => {
+          if (valid == '请输入手机号码' || valid == '手机号码格式有误') {
+            return
+          } else {
+            self.$api.post('/user/smsSend', {
+              mobile: self.form.phone,
+              type: 0
+            }, function(response) {
+              if (response && response.code == 1) {
+                self.second = 60
+                self.sending = true
+                self.sendText = '秒后重发'
+                var interval = setInterval(function() {
+                  self.second--
+                  if (self.second < 1) {
+                    clearInterval(interval);
+                    self.sending = false
+                    self.sendText = '重新获取'
+                  }
+                }, 1000);
+              }
+            })
+          }
+        });
     	},
-    	phone_next() {
-    		// if (this.active <= 3) this.active++;
-    		this.showProtocol = true;
-
+    	phone_next(form) {
+        this.$refs[form].validate((valid) => {
+          if(valid) {
+            this.showProtocol = true
+          } else {
+            return
+          }
+        });
+        
       },
       protocol_next() {
-    		if (this.active <= 2) this.active++;
+    		this.active++;
       },
-     	info_next() {
-    		if (this.active <= 2) this.active++;
+     	info_next(form2) {
+        var self = this
+        this.$refs[form2].validate((valid) => {
+          if(valid) {
+            if (this.form2.password != this.form2.repeatPass) {
+              this.$message.error('两次输入密码不一致，请重新输入')
+              return
+            }
+            this.$api.post('/user/register', {
+              mobile: this.form.phone,
+              accountId: this.form.customerId,
+              password: this.form2.password,
+              nickName: this.form2.nickname,
+              code: this.form.code
+            }, function(response) {
+              if (response && response.code == 1) {
+                self.$currentUser = response.obj
+                self.active = self.active + 2
+              } else {
+                self.$message.error(response.message)
+              }
+            })
+          } else {
+            return
+          }
+        });
       },
       share() {
 

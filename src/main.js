@@ -13,7 +13,7 @@ Vue.prototype.$api = Api;
 import scroll from 'vue-seamless-scroll'
 Vue.use(scroll)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 
 Date.prototype.Format = function(fmt) { //author: meizz   
 	var o = {
@@ -44,3 +44,4 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount("#app");
+

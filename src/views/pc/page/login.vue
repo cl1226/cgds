@@ -8,7 +8,8 @@
 		  <el-divider class="up"></el-divider>
 			<el-image
 	      :src="bg"
-	      :fit="`cover`"></el-image>
+	      :fit="`cover`"
+	      style="width: 960px;margin: 0 auto;"></el-image>
 		  <div class="login-form">
 		  	<el-form ref="form" :label-position="`right`" :model="form" label-width="80px">
 				  <el-form-item label="用户名">
@@ -121,10 +122,10 @@
 		.login-form
 			border-radius: 5px;
 			position: absolute;
-			top: 160px;
-			right: 80px;
+			top: 115px;
+			right: 180px;
 			padding: 15px;
-			width: 400px;
+			width: 350px;
 			height: 280px;
 			background: #ffffff;
 			.el-input-group__append
@@ -140,6 +141,8 @@
 				border-color: #DC3838;
 			.forget
 				float: left;
+				font-size: 14px;
 			.go_register
 				float: right;
+				font-size: 14px;
 </style>

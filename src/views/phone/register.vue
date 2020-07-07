@@ -10,7 +10,7 @@
 			  <el-step title="完成报名"></el-step>
 			</el-steps>	
     </div>
-    <div class="phone" v-if="active == 0 && !showProtocol">
+    <div class="phone" style="margin: 0 15px;" v-if="active == 0 && !showProtocol">
     	<br>
 	    <br>
 	    <br>
@@ -38,24 +38,25 @@
 			<el-link type="primary" class="update" :underline="false" @click="update">修改手机号</el-link>
 			<el-link type="primary" class="open" :underline="false" @click="open">没有客户号？立即开户>></el-link>
     </div>
-    <div class="protocol" v-if="active == 0 && showProtocol">
+    <div class="protocol" style="margin: 0 15px;" v-if="active == 0 && showProtocol">
     	<div style="text-align: left; margin: 0 10px;">
-    		<h4 class="text-center">关于联讯证券实盘炒股用户个人主页信息披露的协议</h4>
-        <p>甲方：联讯证券股份有限公司</p>
+    		<h4 class="text-center">关于工行广州分行-粤开证券实盘炒股大赛用户个人主页信息披露的协议</h4>
+        <p>甲方：粤开证券股份有限公司</p>
         <p>乙方：用户</p>
-        <p>协议有效期：2017年11月1日-2018年2月1日</p>
-        <p>第一、甲方为联讯证券首届实盘炒股大赛（以下简称“大赛”）的主办方，为乙方提供炒股大赛收益率排名的网站8.lxsec.com;乙方自愿选择在大赛网站披露用户个人主页信息，自愿授权甲方计算其账户收益率、持仓明细、交易记录、净资产并结合昵称公布以上数据及排名。</p>
+        <p>协议有效期：2020年7月20日-2020年10月30日</p>
+        <p>第一、甲方为工行广州分行-粤开证券实盘炒股大赛（以下简称“大赛”）的主办方，为乙方提供炒股大赛收益率排名的网站：https://cgds.ykzq.com/；乙方自愿选择在大赛网站披露用户个人主页信息，自愿授权甲方计算其账户收益率、持仓明细、交易记录、净资产并结合昵称公布以上数据及排名。</p>
         <p>第二、乙方以自身客户号、柜台预留手机号码在大赛网站以短信校验方式完成身份校验，视同乙方本人操作行为；乙方在完成以上操作后阅览本协议并且点击同意按钮，视同乙方本人与甲方的协议签署行为，并认可本协议的约定。</p>
         <p>第三、免责条款：
         <p style="text-indent:2em;">1.甲方将本着勤勉尽职的态度竭力保证大赛的顺利进行，但对于不可抗力的因素或非主办方所能控制的情况所导致的风险、系统故障或由于网络问题导致的系统故障等原因对参赛选手收益率及排名产生的影响不做担保。</p>
         <p style="text-indent:2em;">2.乙方必须保护好自己的相关密码，如因为密码丢失或被破解所导致的账户被窃而造成损失的，甲方不负任何责任。</p>
-        <p style="text-indent:2em;">3.大赛所有规则及奖项甲方有权进行更改，本次炒股大赛活动最终解释权归大赛甲方所有。</p>
+        <p style="text-indent:2em;">3.乙方在参赛期间进行的交易操作皆为乙方本人意愿，本次大赛期间甲方人员不提供任何投资建议，只针对赛事规则和细节做好解释工作，账户操作方面造成的亏损由甲方自行承担。</p>
+        <p style="text-indent:2em;">4.大赛所有规则及奖项甲方有权进行更改，本次炒股大赛活动最终解释权归大赛甲方所有。</p>
       </div>
 			<div class="next">
 				<el-button @click="protocol_next">同意</el-button>	
 			</div>
     </div>
-    <div class="info" v-if="active == 1">
+    <div class="info" style="margin: 0 15px;" v-if="active == 1">
     	<br>
     	<br>
     	<br>
@@ -210,16 +211,17 @@
       	this.$router.push('/cgds/mobile/update')
       },
       open() {
-      	var jdsParam = ''
-      	if (window.location.href.indexOf('recommendCode') >= 0) {
-					var map = window.location.search;
-					var array = [];
-					for (var key in map) {
-						array.push(key + '=' + map[key])
-					}
-					jdsParam = array.join('&');
-				}
-      	window.location.href="http://kh.lxsec.com:8999/osoa/views/channel/index.html?" + jdsParam;
+    //   	var jdsParam = ''
+    //   	if (window.location.href.indexOf('recommendCode') >= 0) {
+				// 	var map = window.location.search;
+				// 	var array = [];
+				// 	for (var key in map) {
+				// 		array.push(key + '=' + map[key])
+				// 	}
+				// 	jdsParam = array.join('&');
+				// }
+    //   	window.location.href="http://kh.lxsec.com:8999/osoa/views/channel/index.html?" + jdsParam;
+        window.location.href = "https://kh.lxsec.com:8081/m/open/views/account/index.html?external_channel=B2020&branchId=2600";
       }
     }
   }
@@ -234,7 +236,7 @@
 			border: 1px solid #DC3838 !important;
 			background: #fff !important;
 			color: #DC3838 !important;
-		.next
+    .next
 			.el-button
 				width: 100%;
 				background: #DC3838 !important;

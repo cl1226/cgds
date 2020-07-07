@@ -17,9 +17,9 @@
 			  		<el-image
 				      :src="right"
 				      :fit="`cover`"></el-image>
-				    <el-image
+				    <!-- <el-image
 				      :src="middle"
-				      :fit="`cover`"></el-image>
+				      :fit="`cover`"></el-image> -->
 			  	</div>
 			  </el-col>
 			</el-row>

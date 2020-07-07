@@ -5,7 +5,7 @@
 		  <el-divider direction="vertical"></el-divider>
 		  <el-link :underline="false" href="http://www.ykzq.com/channel/86.html" target="_blank">分支机构</el-link>
 		  <el-divider direction="vertical"></el-divider>
-		  <el-link :underline="false" href="http://jobs.51job.com/all/co2937566.html" target="_blank">诚聘英才</el-link>
+		  <el-link :underline="false" href="http://www.ykzq.com/channel/820.html" target="_blank">诚聘英才</el-link>
 		  <el-divider direction="vertical"></el-divider>
 		  <el-link :underline="false" href="http://www.ykzq.com/" target="_blank">网站地图</el-link>
 		  <el-divider direction="vertical"></el-divider>

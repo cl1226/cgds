@@ -2,6 +2,7 @@ module.exports = {
 	publicPath: '/',
 	outputDir: 'cgds',
 	assetsDir: 'static',
+  lintOnSave: false,
 	css: {
 		// 是否使用css分离插件 ExtractTextPlugin
 		extract: true,

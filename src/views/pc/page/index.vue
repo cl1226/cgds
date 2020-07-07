@@ -279,7 +279,8 @@
 				this.$router.push('login')
 			},
 			open() {
-				window.open('http://www.ykzq.com/channel/123.html')
+				this.$router.push('openAccount')
+				// window.open('http://www.ykzq.com/channel/123.html')
 			},
 			load () {
         this.count += 2
@@ -467,6 +468,7 @@
 				.open
 					color: #DC3838
 					border-color: #DC3838;
+					float: none;
 			.text
 				font-size: 14px;
 		.el-card__header

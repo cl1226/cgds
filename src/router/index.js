@@ -18,6 +18,7 @@ import Award from "../views/pc/page/award.vue";
 import Winner from "../views/pc/page/winner.vue";
 import Dynamic from "../views/pc/page/dynamic.vue";
 import DynamicDetail from "../views/pc/page/dynamicDetail.vue";
+import OpenAccount from "../views/pc/page/openAccount.vue";
 
 // 移动端
 import MobileHome from "../views/phone/index.vue";
@@ -115,6 +116,11 @@ const routes = [
         path: 'dynamic/detail/:date',
         name: 'dynamicDetail',
         component: DynamicDetail
+      },
+      {
+        path: 'openAccount',
+        name: 'openAccount',
+        component: OpenAccount
       }
     ]
   },

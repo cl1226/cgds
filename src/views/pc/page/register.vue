@@ -23,7 +23,7 @@
 					  <el-step title="完成报名"></el-step>
 					</el-steps>
 			  </div>
-				<div class="form" v-if="active == 0">
+				<div class="form" v-if="active == 0 && !showProtocol">
 		    	<br>
 			    <br>
 			    <br>
@@ -50,7 +50,24 @@
 							</div>
 					  </el-form-item>
 					</el-form>
-					
+		    </div>
+		    <div class="protocol" style="color: black;" v-if="active == 0 && showProtocol">
+		    	<div style="text-align: left; margin: 0 10px;">
+		    		<h4 class="text-center">关于工行广州分行-粤开证券实盘炒股大赛用户个人主页信息披露的协议</h4>
+		        <p>甲方：粤开证券股份有限公司</p>
+		        <p>乙方：用户</p>
+		        <p>协议有效期：2020年7月20日-2020年10月30日</p>
+		        <p>第一、甲方为工行广州分行-粤开证券实盘炒股大赛（以下简称“大赛”）的主办方，为乙方提供炒股大赛收益率排名的网站：https://cgds.ykzq.com/；乙方自愿选择在大赛网站披露用户个人主页信息，自愿授权甲方计算其账户收益率、持仓明细、交易记录、净资产并结合昵称公布以上数据及排名。</p>
+		        <p>第二、乙方以自身客户号、柜台预留手机号码在大赛网站以短信校验方式完成身份校验，视同乙方本人操作行为；乙方在完成以上操作后阅览本协议并且点击同意按钮，视同乙方本人与甲方的协议签署行为，并认可本协议的约定。</p>
+		        <p>第三、免责条款：
+		        <p style="text-indent:2em;">1.甲方将本着勤勉尽职的态度竭力保证大赛的顺利进行，但对于不可抗力的因素或非主办方所能控制的情况所导致的风险、系统故障或由于网络问题导致的系统故障等原因对参赛选手收益率及排名产生的影响不做担保。</p>
+		        <p style="text-indent:2em;">2.乙方必须保护好自己的相关密码，如因为密码丢失或被破解所导致的账户被窃而造成损失的，甲方不负任何责任。</p>
+		        <p style="text-indent:2em;">3.乙方在参赛期间进行的交易操作皆为乙方本人意愿，本次大赛期间甲方人员不提供任何投资建议，只针对赛事规则和细节做好解释工作，账户操作方面造成的亏损由甲方自行承担。</p>
+		        <p style="text-indent:2em;">4.大赛所有规则及奖项甲方有权进行更改，本次炒股大赛活动最终解释权归大赛甲方所有。</p>
+		      </div>
+					<div class="protocol_next">
+						<el-button @click="protocol_next">同意</el-button>	
+					</div>
 		    </div>
 		    <div class="form" v-if="active == 1">
 		    	<br>
@@ -126,6 +143,7 @@
 				active: 0,
 				success: success,
 				sending: false,
+				showProtocol: false,
 				sendText: '获取验证码',
 				second: 60,
 				form: {
@@ -149,13 +167,16 @@
 			phone_next(form) {
 				this.$refs[form].validate((valid) => {
 					if(valid) {
-						if (this.active <= 2) this.active++;
+						this.showProtocol = true
 					} else {
 						return
 					}
         });
 				
 			},
+			protocol_next() {
+    		this.active++;
+      },
 			info_next(form2) {
 				var self = this
 				this.$refs[form2].validate((valid) => {
@@ -249,4 +270,11 @@
 						background: #DC3838 !important;
 						color: #FFF !important;
 						font-size: 18px;
+		.protocol_next
+			text-align: center;
+			.el-button
+				width: 280px;
+				background: #DC3838 !important;
+				color: #FFF !important;
+				font-size: 18px;
 </style>

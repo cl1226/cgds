@@ -60,7 +60,11 @@
 					name: '我的粉丝',
 					code: 'fans',
 					hidden: true
-				},]
+				}, {
+					name: '开户',
+					code: 'openAccount',
+					hidden: true
+				}]
 			}
 		},
 		methods: {
